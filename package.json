@@ -1,0 +1,17 @@
+{
+  "name": "bisbot",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.16.3-dev.1727136724-6c77fee41",
+    "djs-commander": "^0.0.50",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.5.3"
+  }
+}
