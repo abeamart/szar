@@ -24,33 +24,37 @@ module.exports = async (interaction, client, handler) => {
 	if (!interaction.isButton()) return;
 
 	if (interaction.customId === 'verifymodaltrigger') {
-		
-		const memnick = await canfetch(interaction.guild.members, interaction.channel.topic)
-		if (memnick == false) { 
-			interaction.deferReply()
-			interaction.editReply('nie znaleziono użytkownika..')
-			
-			if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == true) {
-				interaction.channel.send({ components: [row], embeds: [deleteembed] })
-			} 
-			console.log(`chciano pokazać ${interaction.member} modal personalizacji, ale nie można było znaleźć właściciela personalizacji (${error})`); return 
-		}
+		await interaction.deferReply().then(async () => {
 
-		vermodalmain.setTitle(`ustaw profil ${memnick.user.username}`)
+			const memnick = await canfetch(interaction.guild.members, interaction.channel.topic)
+			if (memnick == false) {
 
-		const dbprofile = await dbdata.findOne({ Id: interaction.channel.topic })
+				interaction.editReply('nie znaleziono użytkownika..')
 
-		const dbunverdesiredinfo = dbprofile.info.unverdesiredinfo
-		varmodalname.setValue(dbunverdesiredinfo.name)
-		varmodaldesirednick.setValue(dbunverdesiredinfo.desirednick)
-		varmodalsurname.setValue(dbunverdesiredinfo.surname)
-		if (dbunverdesiredinfo.grade.length == 2) {
-			varmodalgrade.setValue(dbunverdesiredinfo.grade)
-		}
+				if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == true) {
+					interaction.channel.send({ components: [row], embeds: [deleteembed] })
+				}
+				console.log(`chciano pokazać ${interaction.member} modal personalizacji, ale nie można było znaleźć właściciela personalizacji (${error})`)
+				return
+			}
+
+			vermodalmain.setTitle(`ustaw profil ${memnick.user.username}`)
+
+			const dbprofile = await dbdata.findOne({ Id: interaction.channel.topic })
+
+			const dbunverdesiredinfo = dbprofile.info.unverdesiredinfo
+			varmodalname.setValue(dbunverdesiredinfo.name)
+			varmodaldesirednick.setValue(dbunverdesiredinfo.desirednick)
+			varmodalsurname.setValue(dbunverdesiredinfo.surname)
+			if (dbunverdesiredinfo.grade.length == 2) {
+				varmodalgrade.setValue(dbunverdesiredinfo.grade)
+			}
 
 
-		await interaction.showModal(vermodalmain)
-		console.log(`powiodło się pokazywanie ${interaction.member} modalu ${memnick} `)
+			await interaction.showModal(vermodalmain)
+			console.log(`powiodło się pokazywanie ${interaction.member} modalu ${memnick} `)
+		}).catch(error => console.log(error))
+
 	}
 }
 
