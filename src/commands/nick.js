@@ -14,7 +14,7 @@ module.exports = {
           .setRequired(true)),
 
   run: async({ interaction, client, handler }) => {
-    
+    interaction.deferReply()
     const newNick = interaction.options.getString('nowy-nick')
     let member = interaction.member
     
@@ -22,6 +22,6 @@ module.exports = {
         { $set: { [`info.desirednick`]: newNick } })
     console.log(`${member} ustawił swój nick na "${newNick}"`)
     setnickname(interaction, member)
-    interaction.reply('zmieniono twój nick ^_~')
+    interaction.editReply('zmieniono twój nick ^_~')
   },
 };
