@@ -20,7 +20,7 @@ module.exports = async (interaction, client, handler) => {
                 )
 
             console.log(interaction.message)
-            await interaction.reply({ embeds: [helpembed], ephemeral: true })
+            await interaction.editReply({ embeds: [helpembed], ephemeral: true })
         }
         else if (selectedhelp == 'helppersonalizacja') {
 
@@ -30,7 +30,7 @@ module.exports = async (interaction, client, handler) => {
                 )
 
             console.log(interaction.message)
-            await interaction.reply({ embeds: [helpembed] })
+            await interaction.editReply({ embeds: [helpembed] })
         }
 
         else if (selectedhelp == 'helpcustom') {

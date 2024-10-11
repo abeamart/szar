@@ -19,7 +19,7 @@ module.exports = async (interaction, client, handler) => {
         await interaction.deferUpdate()
         const memnick = await canfetch(interaction.guild.members, interaction.channel.topic)
 
-        if (memnick == false) { interaction.reply('nie znaleziono użytkownika..'); return }
+        if (memnick == false) { interaction.editReply('nie znaleziono użytkownika..'); return }
 
         const userdb = await dbdata.findOne({ Id: interaction.channel.topic })
 
@@ -69,7 +69,7 @@ module.exports = async (interaction, client, handler) => {
             console.log(`informacje z modalu zostały pomyślnie wysłane`)
         }
         else {
-            interaction.reply('coś poważnego poszło nie tak... :<')
+            interaction.editReply('coś poważnego poszło nie tak... :<')
             console.log(`coś stało się z załącznikiem personalizacji profilu.. możliwie, że została usunięta`)
         }
 

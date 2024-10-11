@@ -18,7 +18,7 @@ module.exports = async (interaction, client, handler) => {
     if (interaction.customId === 'approveverprof') {
         await interaction.deferUpdate()
         if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == false) {
-            interaction.reply({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
+            interaction.editReply({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
             console.log(`${interaction.member.username} próbował spersonalizować czyiś profil, ale nie jest moderatorem`)
             return;
 
@@ -28,9 +28,9 @@ module.exports = async (interaction, client, handler) => {
 
         if (userprof == false) {
             if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == true) {
-                interaction.reply({ components: [row], embeds: [deleteembed] })
+                interaction.editReply({ components: [row], embeds: [deleteembed] })
             }
-            else { interaction.reply({ content: 'ten kanał do nikogo nie należy.. ' }) }
+            else { interaction.editReply({ content: 'ten kanał do nikogo nie należy.. ' }) }
             console.log(`próbowano zatwierdzić profil personalizacji nieznanego użytkownika`); return
         }
 
@@ -80,7 +80,7 @@ module.exports = async (interaction, client, handler) => {
     else if (interaction.customId === 'denyverprof') {
         //again check if the user is a moderator
         if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == false) {
-            interaction.reply({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
+            interaction.editReply({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
             console.log(`${interaction.member.username} próbował spersonalizować czyiś profil, ale nie jest moderatorem`)
             return;
         }

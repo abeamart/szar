@@ -36,14 +36,14 @@ module.exports = async (interaction, client, handler) => {
             const verchan = await interaction.guild.channels.fetch(checkforverchan)
 
             if (verchan.permissionsFor(interaction.member).has(PermissionsBitField.Flags.ViewChannel)) { //checks if the user has access to view the channel
-                interaction.reply({
+                interaction.editReply({
                     ephemeral: true,
                     content: `spójrz, czy nie masz dostępnego kanału z personalizacją! (${verchan})`
                 })
                 console.log(`${interaction.member} chciał zrobić nową sesję personalizacji, ale ma już do jednej dostęp`)
             }
             else { //if the user can't see the channel in question then asks if you want a new channel or to continue your old one
-                interaction.reply({
+                interaction.editReply({
                     ephemeral: true,
                     content: "chcesz kontynuować starą sesję, czy rozpocząć od nowa?",
                     components: [veroptions],
