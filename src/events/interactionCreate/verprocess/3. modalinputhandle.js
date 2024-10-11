@@ -65,7 +65,7 @@ module.exports = async (interaction, client, handler) => {
                     embeds: [beterembed],
                     components: [row]
                 })
-                interaction.deferUpdate()
+                
                 console.log(`informacje z modalu zostały pomyślnie wysłane`)
             }
             else {
