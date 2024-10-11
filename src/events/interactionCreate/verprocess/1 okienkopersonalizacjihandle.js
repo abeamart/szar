@@ -23,7 +23,7 @@ module.exports = async (interaction, client, handler) => {
     }
 
     if (interaction.customId === 'personalizacja' && debounce == false) {
-        await interaction.deferUpdate().then(async () => {
+        await interaction.deferReply({ephemeral: true}).then(async () => {
             debounce = true
             const checkforverchan = await checkforverchannel(interaction.user.id, interaction.guild, false)
 
@@ -46,7 +46,7 @@ module.exports = async (interaction, client, handler) => {
                 }
                 else { //if the user can't see the channel in question then asks if you want a new channel or to continue your old one
                     interaction.editReply({
-                        ephemeral: true,
+                        
                         content: "chcesz kontynuować starą sesję, czy rozpocząć od nowa?",
                         components: [veroptions],
                     })
