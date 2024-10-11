@@ -23,7 +23,7 @@ module.exports = {
 
 
   run: async ({ interaction, client, handler }) => {
-
+    await interaction.deferReply()
     const check = [
       [interaction.options.getBoolean('imię'), "name"],
       [interaction.options.getBoolean('nick'), "desirednick"],
@@ -54,6 +54,6 @@ module.exports = {
       }
     });
     setnickname(interaction, interaction.member)
-    interaction.reply('zmieniono nazwę użytkownika ^_~')
+    interaction.editReply('zmieniono nazwę użytkownika ^_~')
   }
 }
