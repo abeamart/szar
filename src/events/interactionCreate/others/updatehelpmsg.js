@@ -8,8 +8,9 @@ const helpembed = new EmbedBuilder().setColor('#5865F2')
 module.exports = async (interaction, client, handler) => {
 
     if (interaction.customId == 'pomocdropdown') {
+        const selectedhelp = interaction.values[0]
         await interaction.deferUpdate().then(async () => {
-            const selectedhelp = interaction.values[0]
+            
 
             if (selectedhelp == 'helpcommands') {
 
@@ -33,15 +34,15 @@ module.exports = async (interaction, client, handler) => {
                 console.log(interaction.message)
                 await interaction.editReply({ embeds: [helpembed] })
             }
-
-            else if (selectedhelp == 'helpcustom') {
-
-                console.log('br')
-                modalhelp.setTitle(`o co chcesz się spytać ${interaction.user.username}?`)
-                await interaction.showModal(modalhelp)
-            }
-
         }).catch(error => console.log(error))
+        if (selectedhelp == 'helpcustom') {
+
+            console.log('br')
+            modalhelp.setTitle(`o co chcesz się spytać ${interaction.user.username}?`)
+            await interaction.showModal(modalhelp)
+        }
+
+
 
 
     }
