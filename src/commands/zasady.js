@@ -27,7 +27,8 @@ module.exports = {
         .setDescription('którą zasadę serwera chcesz zacytować').setRequired(true).setMaxValue(7).setMinValue(1)),
 
   run: ({ interaction, client, handler }) => {
+      await interaction.deferReply()
     const index = interaction.options.getNumber('która-zasada')
-    interaction.reply(`${odmiany[index-1]} zasada głosi "${zasady[index-1]}"`)
+    interaction.editReply(`${odmiany[index-1]} zasada głosi "${zasady[index-1]}"`)
   },
 };
