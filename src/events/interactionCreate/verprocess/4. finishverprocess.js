@@ -16,7 +16,7 @@ module.exports = async (interaction, client, handler) => {
     if (!interaction.isButton()) return;
 
     if (interaction.customId === 'approveverprof') {
-
+        await interaction.deferUpdate()
         if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == false) {
             interaction.reply({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
             console.log(`${interaction.member.username} próbował spersonalizować czyiś profil, ale nie jest moderatorem`)

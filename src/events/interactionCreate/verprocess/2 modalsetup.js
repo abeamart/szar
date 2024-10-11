@@ -24,7 +24,7 @@ module.exports = async (interaction, client, handler) => {
 	if (!interaction.isButton()) return;
 
 	if (interaction.customId === 'verifymodaltrigger') {
-
+		interaction.deferUpdate()
 		const memnick = await canfetch(interaction.guild.members, interaction.channel.topic)
 		if (memnick == false) { interaction.reply('nie znaleziono użytkownika..')
 			if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == true) {

@@ -9,10 +9,10 @@ module.exports = async (interaction, client, handler) => {
     if (!interaction.isButton()) return;
 
     if (interaction.customId === 'verkontynuuj') {
+        await interaction.deferReply({ephemeral: true})
         const verchanid = await checkforverchannel(interaction.user.id, interaction.guild)
-
         const verchan = await canfetch(interaction.guild.channels, verchanid)
-		if (verchan == false) { interaction.reply({ ephemeral: true, content: "hm.. ten kanał został usunięty, kliknij na przycisk 'personalizuj' ponowanie!" })
+		if (verchan == false) { interaction.editReply({ ephemeral: true, content: "hm.. ten kanał został usunięty, kliknij na przycisk 'personalizuj' ponowanie!" })
             console.log(`dla ${interaction.member} próbowano dać dostęp do starego kanału, ale nie istnieje`); return }
 
         if (!verchan.permissionsFor(interaction.member).has(PermissionsBitField.Flags.ViewChannel)) {
@@ -32,10 +32,10 @@ module.exports = async (interaction, client, handler) => {
                     }
                 ]
             );
-            interaction.reply({ ephemeral: true, content: "zrobione!" })
+            interaction.editReply({ ephemeral: true, content: "zrobione!" })
             console.log(`udało się przywrócić ${interaction.member} jego stary kanał personalizacji`)
         } else {
-            interaction.reply({ ephemeral: true, content: "spójrz, czy nie masz dostępnego kanału z personalizacją" })
+            interaction.editReply({ ephemeral: true, content: "spójrz, czy nie masz dostępnego kanału z personalizacją" })
             console.log(`okazuje się, że ${interaction.member} ma dostęp do kanału personalizacji`)
         }
 
@@ -44,11 +44,12 @@ module.exports = async (interaction, client, handler) => {
 
 
     else if (interaction.customId === 'verodnowa') {
+        await interaction.deferReply({ephemeral: true})
         const verchanid = await checkforverchannel(interaction.user.id, interaction.guild)
         const verchan = await canfetch(interaction.guild.channels, verchanid)
-		if (verchan == false) { interaction.reply({ ephemeral: true, content: "hm.. ten kanał został usunięty, kliknij na przycisk 'personalizuj' ponowanie!" })
+		if (verchan == false) { interaction.editReply({ content: "hm.. ten kanał został usunięty, kliknij na przycisk 'personalizuj' ponowanie!" })
             console.log(error)
-            interaction.reply({ ephemeral: true, content: "okazuje się, że ten kanał został usunięty. stworzę nowy" })
+            interaction.editReply({ content: "okazuje się, że ten kanał został usunięty. stworzę nowy" })
             createverchan(interaction.guild, interaction.member, false)
             console.log(`${interaction.member} chciał stworzyć nowy kanał personalizacji, po tym, jak stary był wykryty, ale okazuje się, że ten stary został usunięty, stworzy się nowy`)
          return }
@@ -58,11 +59,10 @@ module.exports = async (interaction, client, handler) => {
             verchan.setTopic('nie ma właściciela')
             verchan.setName(`duplikat-${await interaction.user.username.replace(/[.]/g, '')}`)
             createverchan(interaction.guild, interaction.member, false)
-            interaction.deferUpdate()
             console.log(`znaleziono kanał, ale ${interaction.member} nie ma do niego dostępu i stworzono nową sesję personalizacji`)
 
         } else {
-            interaction.reply({ ephemeral: true, content: "masz już dostępną sesję personalizacji!" })
+            interaction.editReply({  content: "masz już dostępną sesję personalizacji!" })
             console.log(`użytkownik ${interaction.member}chciał utworzyć nową sesję personalizacji, ale okazuje się, że ma już do jednej dostęp `)
         }
 

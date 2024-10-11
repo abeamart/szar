@@ -22,14 +22,14 @@ module.exports = async (interaction, client, handler) => {
     if (!interaction.isButton()) return;
 
     if (interaction.customId === 'deletechan') {
-
+        await interaction.deferReply({ephemeral: true})
         if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == false) {//if user doesnt have permissions
-            interaction.reply({ ephemeral: true, content: 'tylko moderator może to zrobić ;(' })
+            interaction.editReply({ content: 'tylko moderator może to zrobić ;(' })
             console.log(`${interaction.member} próbował usunąć kanał, ale nie ma rangi moderatora`)
             return
         }
 
-        await interaction.deferUpdate()
+        
         chanstodel.push([interaction.message.id, setTimeout(() => { console.log('kanał został usunięty'); if (interaction.channel) { interaction.channel.delete() } }, 30000)])
 
         interaction.message.edit(
@@ -41,9 +41,9 @@ module.exports = async (interaction, client, handler) => {
         console.log(`kanał ${interaction.channel} będzie usunięty za 30 sekund`)
     }
     else if (interaction.customId === 'deletechancancel') {
-
+        await interaction.deferReply({ephemeral: true})
         if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == false) {//if user doesnt have permissions
-            interaction.reply({ ephemeral: true, content: 'tylko moderator może to zrobić ;(' })
+            interaction.editReply({ content: 'tylko moderator może to zrobić ;(' })
             console.log(`${interaction.member} próbował usunąć kanał, ale nie ma rangi moderatora`)
             return
         }
@@ -55,7 +55,7 @@ module.exports = async (interaction, client, handler) => {
             const message = await interaction.channel.messages.fetch(chanstodel[timeout][0])
             message.delete()
 
-            setTimeout(() => { interaction.reply({ ephemeral: true, content: 'anulowano!' }) }, 100)
+            setTimeout(() => { interaction.editReply({ content: 'anulowano!' }) }, 100)
             console.log(`anulowano usunięcie kanału przez ${interaction.member}`)
         }
 

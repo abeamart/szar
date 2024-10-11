@@ -5,6 +5,7 @@ const helpembed = new EmbedBuilder().setColor('#a85cc6')
 module.exports = async (interaction, client, handler) => {
 
     if (interaction.customId === 'modalhelp') {
+        await interaction.deferReply({ephemeral: true})
         const reason = interaction.fields.getTextInputValue('helpcustommodal')
         await interaction.guild.channels.fetch(process.env.MOD_CHAN)
             .then(modchan => {
@@ -15,7 +16,7 @@ module.exports = async (interaction, client, handler) => {
                 .setFooter({text: `ID: ${interaction.user.id}`})
 
                 modchan.send({embeds: [helpembed]})
-                interaction.reply({ephemeral: true, content: 'wysłano!'})
+                interaction.editReply({ content: 'wysłano!'})
                 
             })
             .catch(error => console.log(error))

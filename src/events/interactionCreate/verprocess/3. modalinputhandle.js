@@ -16,7 +16,7 @@ const grading2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 module.exports = async (interaction, client, handler) => {
     if (!interaction.isModalSubmit()) return;
     if (interaction.customId === 'vermodalmain') {
-
+        await interaction.deferUpdate()
         const memnick = await canfetch(interaction.guild.members, interaction.channel.topic)
 
         if (memnick == false) { interaction.reply('nie znaleziono użytkownika..'); return }
@@ -79,6 +79,7 @@ module.exports = async (interaction, client, handler) => {
 
     } else if (interaction.customId === 'modalkickreason') {
         //inform him in dms and kick
+        await interaction.deferUpdate()
         const mem = await canfetch(interaction.guild.members, interaction.channel.topic)
 
         if (mem == false) {
@@ -99,7 +100,6 @@ module.exports = async (interaction, client, handler) => {
             mem.kick('nie udało się przejść procesu personalizacji').then(mem => console.log(`wyrzucono ${mem}`)).catch(error => console.log(error));
         }
         console.log(`powiodło się niepomyślne zakończnie personalizacji użytkownika ${mem}`)
-        interaction.deferUpdate()
         interaction.guild.channels.delete(interaction.channel)
 
     }
