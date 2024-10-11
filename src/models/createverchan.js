@@ -70,7 +70,7 @@ module.exports = async (guild, mem, dootherchancheck, interaction) => {
             components: [row2]
         })
         if (interaction) {
-            interaction.reply({ ephemeral: true, content: `nowy kanał personalizacji został stworzony! (${ch})` })
+            interaction.editReply({ ephemeral: true, content: `nowy kanał personalizacji został stworzony! (${ch})` })
         }
         console.log(`stworzono nowy kanał personalizacji dla ${mem} (${ch.id})`)
     })
