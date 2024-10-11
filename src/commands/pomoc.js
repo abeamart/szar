@@ -30,7 +30,7 @@ module.exports = {
     .setDescription('pomoc!'),
 
   run: async ({ interaction, client, handler }) => {
-  
+  await interaction.deferReply()
 const row3 = new ActionRowBuilder().addComponents(select);
 
     if (Math.floor(Math.random() * 101) == 1) {
@@ -38,7 +38,7 @@ const row3 = new ActionRowBuilder().addComponents(select);
     } else {
       helpembed.setDescription(`z czym potrzebujesz pomocy ${interaction.member}?`)
     }
-    await interaction.reply({ ephemeral: true, components: [row3], embeds: [helpembed] }) 
+    interaction.editReply({ ephemeral: true, components: [row3], embeds: [helpembed] }) 
 
 
   },
