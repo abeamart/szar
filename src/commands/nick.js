@@ -14,7 +14,7 @@ module.exports = {
           .setRequired(true)),
 
   run: async({ interaction, client, handler }) => {
-    interaction.deferReply()
+    await interaction.deferReply()
     const newNick = interaction.options.getString('nowy-nick')
     let member = interaction.member
     
