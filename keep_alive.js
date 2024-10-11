@@ -1,6 +1,6 @@
 var http = require('http');
 
-http.createServer(function (res,req) {
+http.createServer(function (req,res) {
   res.write("I'am alive");
   res.end();
 }).listen(8080);
