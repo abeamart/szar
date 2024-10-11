@@ -1,4 +1,4 @@
-
+const keep_alive = require('../keep_alive.js')
 require('dotenv').config();
     const {  Client, IntentsBitField } = require('discord.js');
     const mongoose = require('mongoose')
