@@ -5,9 +5,8 @@ require('dotenv').config();
 const helpembed = new EmbedBuilder().setColor('#5865F2').setTitle('Pomoc!')
 
 const select = new StringSelectMenuBuilder()
-
   .setCustomId('pomocdropdown')
-  .setPlaceholder('wybierz, z czym potrzebujesz pomocy!')
+  .setPlaceholder('wybierz z czym potrzebujesz pomocy!')
   
   .addOptions(
     new StringSelectMenuOptionBuilder()

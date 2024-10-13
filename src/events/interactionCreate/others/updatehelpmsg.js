@@ -39,9 +39,8 @@ module.exports = async (interaction, client, handler) => {
 
                     console.log(interaction.message)
                     interaction.editReply({ embeds: [helpembed] })
-                } else {
-                    interaction.followUp({content: 'ej coś poszło nie tak', ephemeral: true})
                 }
+                
             }).catch(error => console.log(error))
         }
 
