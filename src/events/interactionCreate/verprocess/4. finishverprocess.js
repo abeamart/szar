@@ -83,7 +83,7 @@ module.exports = async (interaction, client, handler) => {
         //again check if the user is a moderator
 
         if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == false) {
-            interaction.editReply({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
+            interaction.reply({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
             console.log(`${interaction.member.username} próbował spersonalizować czyiś profil, ale nie jest moderatorem`)
             return;
         }
