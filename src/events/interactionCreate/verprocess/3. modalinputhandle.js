@@ -68,6 +68,18 @@ module.exports = async (interaction, client, handler) => {
                     })
 
                     console.log(`informacje z modalu zostały pomyślnie wysłane`)
+                } else {
+                    const worseembed = new EmbedBuilder()
+                        .setColor(msgembed.color)
+                        .setDescription(interaction.message.embeds[0].description)
+                        .addFields(
+                            { name: ' ', value: msgembed.fields[0].value },
+                            { name: msgembed.fields[1].name, value: msgembed.fields[1].value })
+
+                    interaction.message.edit({
+                        embeds: [worseembed],
+                        components: [row]
+                    })
                 }
             }
 

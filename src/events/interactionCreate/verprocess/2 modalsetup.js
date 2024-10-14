@@ -27,8 +27,7 @@ module.exports = async (interaction, client, handler) => {
 		
 		const memnick = await canfetch(interaction.guild.members, interaction.channel.topic)
 		if (memnick == false) { 
-			await interaction.deferReply()
-			interaction.editReply('nie znaleziono użytkownika..')
+			interaction.reply('nie znaleziono użytkownika..')
 			
 			if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == true) {
 				interaction.channel.send({ components: [row], embeds: [deleteembed] })
