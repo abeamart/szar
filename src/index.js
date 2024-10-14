@@ -29,7 +29,7 @@ require('dotenv').config();
 (async () => {
   try {
     await mongoose.connect(process.env.MONGODBURI,{
-      dbName: 'test',
+      dbName: 'main',
   });
     client.login(process.env.TOKEN);
   console.log('connected')
