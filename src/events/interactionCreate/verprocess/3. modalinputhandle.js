@@ -53,21 +53,24 @@ module.exports = async (interaction, client, handler) => {
             const msgembed = interaction.message.embeds[0]
 
             if (msgembed.fields.length > 1) {
-                const beterembed = new EmbedBuilder()
-                    .setColor(msgembed.color)
-                    .setDescription(interaction.message.embeds[0].description)
-                    .addFields(
-                        { name: ' ', value: msgembed.fields[0].value },
-                        { name: msgembed.fields[1].name, value: msgembed.fields[1].value },
-                        { name: `nowe informacje dla ${memnick.user.username}:`, value: updatedstrings })
+                if (updatedstrings !== '') {
+                    const beterembed = new EmbedBuilder()
+                        .setColor(msgembed.color)
+                        .setDescription(interaction.message.embeds[0].description)
+                        .addFields(
+                            { name: ' ', value: msgembed.fields[0].value },
+                            { name: msgembed.fields[1].name, value: msgembed.fields[1].value },
+                            { name: `nowe informacje dla ${memnick.user.username}:`, value: updatedstrings })
 
-                interaction.message.edit({
-                    embeds: [beterembed],
-                    components: [row]
-                })
-                
-                console.log(`informacje z modalu zostały pomyślnie wysłane`)
+                    interaction.message.edit({
+                        embeds: [beterembed],
+                        components: [row]
+                    })
+
+                    console.log(`informacje z modalu zostały pomyślnie wysłane`)
+                }
             }
+
             else {
                 interaction.editReply('coś poważnego poszło nie tak... :<')
                 console.log(`coś stało się z załącznikiem personalizacji profilu.. możliwie, że została usunięta`)
