@@ -1,7 +1,7 @@
 const { TextInputBuilder, ModalBuilder, EmbedBuilder, ActionRowBuilder, TextInputStyle, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
 const modalreason = new TextInputBuilder().setCustomId('helpcustommodal').setLabel("problem:").setStyle(TextInputStyle.Short).setRequired(true)
 const modalrow = new ActionRowBuilder().addComponents(modalreason);
-const modalhelp = new ModalBuilder().setCustomId('modalhelp').addComponents(modalrow);
+const modalhelp = new ModalBuilder().setCustomId('modalhelp').addComponents(modalrow).setTitle(`o co chcesz się spytać?`);
 
 const helpembed = new EmbedBuilder().setColor('#5865F2')
 
@@ -12,7 +12,6 @@ module.exports = async (interaction, client, handler) => {
         if (selectedhelp == 'helpcustom') {
 
             console.log('br')
-            modalhelp.setTitle(`o co chcesz się spytać ${interaction.user.username}?`)
             await interaction.showModal(modalhelp)
         } else {
             await interaction.deferUpdate().then(async () => {

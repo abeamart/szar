@@ -34,8 +34,10 @@ module.exports = async (interaction, client, handler) => {
 			} 
 			console.log(`chciano pokazać ${interaction.member} modal personalizacji, ale nie można było znaleźć właściciela personalizacji (${error})`); return 
 		}
-
-		vermodalmain.setTitle(`ustaw profil ${memnick.user.username}`)
+		if (memnick.user.username.length < 18) {
+			vermodalmain.setTitle(`ustaw profil ${memnick.user.username}`)
+		}
+		
 
 		const dbprofile = await dbdata.findOne({ Id: interaction.channel.topic })
 

@@ -23,7 +23,7 @@ module.exports = {
 
 
   run: async ({ interaction, client, handler }) => {
-    await interaction.deferReply()
+    await interaction.deferReply({ephemeral: true})
     const check = [
       [interaction.options.getBoolean('imię'), "name"],
       [interaction.options.getBoolean('nick'), "desirednick"],
@@ -44,7 +44,6 @@ module.exports = {
 
             await dbdata.findByIdAndUpdate(guydb.id,
               { $push: { [`info.desirednickname`]: ref } })
-
           }
         }
         else {
@@ -52,8 +51,11 @@ module.exports = {
             { $pull: { [`info.desirednickname`]: ref } })
         }
       }
-    });
-    setnickname(interaction, interaction.member)
-    interaction.editReply('zmieniono nazwę użytkownika ^_~')
+    }).then(() => {
+      setnickname(interaction, interaction.member)
+      interaction.editReply('zmieniono nazwę użytkownika ^_~')
+    })
+    
+    
   }
 }

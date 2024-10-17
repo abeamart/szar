@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const modalreason = new TextInputBuilder().setCustomId('vermodalname').setLabel("powód:").setStyle(TextInputStyle.Short).setRequired(false).setValue('podszywanie się')
 const modalrow = new ActionRowBuilder().addComponents(modalreason);
-const modalkickreason = new ModalBuilder().setCustomId('modalkickreason').addComponents(modalrow);
+const modalkickreason = new ModalBuilder().setCustomId('modalkickreason').addComponents(modalrow).setTitle(`powód niepowodzenia`);
 
 const exampleEmbed = new EmbedBuilder().setColor('#248046')
 
@@ -18,7 +18,7 @@ module.exports = async (interaction, client, handler) => {
     if (interaction.customId === 'approveverprof') {
         await interaction.deferUpdate().then(async () => {
             if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == false) {
-                interaction.editReply({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
+                interaction.followUp({ content: 'tylko moderator może użyć tego przycisku ;( poczekaj cierpliwie! :D', ephemeral: true })
                 console.log(`${interaction.member.username} próbował spersonalizować czyiś profil, ale nie jest moderatorem`)
                 return;
 
@@ -28,20 +28,21 @@ module.exports = async (interaction, client, handler) => {
 
             if (userprof == false) {
                 if (await interaction.member.roles.cache.has(process.env.ADMIN_ROLE) == true) {
-                    interaction.editReply({ components: [row], embeds: [deleteembed] })
+                    interaction.followUp({ components: [row], embeds: [deleteembed] })
                 }
-                else { interaction.editReply({ content: 'ten kanał do nikogo nie należy.. ' }) }
+                else { interaction.followUp({ content: 'ten kanał do nikogo nie należy.. ' }) }
                 console.log(`próbowano zatwierdzić profil personalizacji nieznanego użytkownika`); return
             }
 
             const dbprof = await dbdata.findOne({ Id: interaction.channel.topic })
             const dbverified = dbprof.verified
 
+            const grade = dbprof.info.unverdesiredinfo.grade
             const updatearray = [
                 [dbprof.info.unverdesiredinfo.name, 'imię'], //name
                 [dbprof.info.unverdesiredinfo.desirednick, 'nick'], //nick
                 [dbprof.info.unverdesiredinfo.surname, 'nazwisko'], //surname
-                [dbprof.info.unverdesiredinfo.grade, 'klasa'], //grade
+                [grade, 'klasa'], //grade
             ]
 
             await dbdata.findByIdAndUpdate(dbprof.id, {
@@ -50,6 +51,11 @@ module.exports = async (interaction, client, handler) => {
             })
 
             //add neccessary roles
+            if (grade !== '') {
+                console.log(grade)
+                const graderole = interaction.guild.roles.cache.find(role => role.name == grade)
+                console.log(graderole)
+            }
             await userprof.roles.add(process.env.MEMBER_ROLE).then(userprof => console.log(`gave ${userprof} member pemissions`))
                 .catch(console.error);
 
@@ -94,7 +100,10 @@ module.exports = async (interaction, client, handler) => {
             console.log(`nie powiodła się próba niepomyślnego zakończenia personalizacji, gdyż nie znaleziono użytkownika `)
             interaction.guild.channels.delete(interaction.channel); return
         }
-        modalkickreason.setTitle(`powód niepowodzenia personalizacji ${mem.user.username}`)
+        if (mem.user.username.length < 11) {
+            modalkickreason.setTitle(`powód niepowodzenia ${mem.user.username}`)
+        }
+        
         await interaction.showModal(modalkickreason)
         console.log(`powiodło się pokazywanie ${interaction.member} modalu wyrzucania ${mem} `)
 

@@ -19,7 +19,7 @@ module.exports = async (interaction, client, handler) => {
         await interaction.deferUpdate().then(async () => {
             const memnick = await canfetch(interaction.guild.members, interaction.channel.topic)
 
-            if (memnick == false) { interaction.editReply('nie znaleziono użytkownika..'); return }
+            if (memnick == false) { interaction.followUp('nie znaleziono użytkownika..'); return }
 
             const userdb = await dbdata.findOne({ Id: interaction.channel.topic })
 
