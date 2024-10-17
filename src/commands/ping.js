@@ -6,8 +6,10 @@ module.exports = {
     .setName('ping')
     .setDescription('pong!'),
 
-  run: ({ interaction, client, handler }) => {
+  run: async({ interaction, client, handler }) => {
     
     interaction.reply(`pong! ${client.ws.ping}ms`);
+    const cat = await interaction.guild.channels.fetch('1160312867724202126')
+    cat.clone()
   },
 };
