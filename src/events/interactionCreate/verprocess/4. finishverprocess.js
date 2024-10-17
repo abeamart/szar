@@ -55,6 +55,9 @@ module.exports = async (interaction, client, handler) => {
                 console.log(grade)
                 const graderole = interaction.guild.roles.cache.find(role => role.name == grade)
                 console.log(graderole)
+                if (graderole) {
+                    userprof.roles.add(graderole).then(userprof => console.log(`gave ${userprof} their class role ${graderole.id}`))
+                }
             }
             await userprof.roles.add(process.env.MEMBER_ROLE).then(userprof => console.log(`gave ${userprof} member pemissions`))
                 .catch(console.error);
