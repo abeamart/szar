@@ -33,6 +33,7 @@ module.exports = {
 
     const guydb = await dbdata.findOne({ Id: interaction.member.id })
 
+    let itemsprocessed = 0;
     check.forEach(async el => {
       const obj = el[0]
       const ref = el[1]
@@ -51,9 +52,11 @@ module.exports = {
             { $pull: { [`info.desirednickname`]: ref } })
         }
       }
-    }).then(() => {
-      setnickname(interaction, interaction.member)
-      interaction.editReply('zmieniono nazwę użytkownika ^_~')
+      itemsprocessed++;
+      if (itemsprocessed === array.length) {
+        setnickname(interaction, interaction.member)
+        interaction.editReply('zmieniono nazwę użytkownika ^_~')
+      }
     })
     
     

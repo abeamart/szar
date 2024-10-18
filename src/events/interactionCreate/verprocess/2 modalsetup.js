@@ -8,9 +8,9 @@ const deleteembed = new EmbedBuilder().setColor('#DA373C').setTitle('Uwaga!').se
 const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('deletechan').setLabel('usunąć?').setStyle(ButtonStyle.Danger));
 
 //making the modals
-const varmodalname = new TextInputBuilder().setCustomId('vermodalname').setLabel("imię:").setStyle(TextInputStyle.Short).setRequired(false).setMaxLength(25)
+const varmodalname = new TextInputBuilder().setCustomId('vermodalname').setLabel("(opcjonalne) imię:").setStyle(TextInputStyle.Short).setRequired(false).setMaxLength(25)
 const varmodaldesirednick = new TextInputBuilder().setCustomId('vermodalnick').setLabel("nick:").setStyle(TextInputStyle.Short).setRequired(false).setMaxLength(25)
-const varmodalsurname = new TextInputBuilder().setCustomId('vermodalsurname').setLabel("nazwisko:").setStyle(TextInputStyle.Short).setRequired(false).setMaxLength(25)
+const varmodalsurname = new TextInputBuilder().setCustomId('vermodalsurname').setLabel("(opcjonalne) nazwisko:").setStyle(TextInputStyle.Short).setRequired(false).setMaxLength(25)
 const varmodalgrade = new TextInputBuilder().setCustomId('vermodalgrade').setLabel("klasa: (np.:\t 2A, 4B, 3G)").setStyle(TextInputStyle.Short).setRequired(false).setMaxLength(2).setMinLength(2)
 
 const modalrow1 = new ActionRowBuilder().addComponents(varmodalname);
